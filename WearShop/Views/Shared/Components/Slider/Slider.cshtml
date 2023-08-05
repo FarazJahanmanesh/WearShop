@@ -1,0 +1,23 @@
+﻿@model List<Slider>
+<ul>
+	@foreach(var item in Model){
+		<li data-thumb="@item.Url" data-transition="fade" data-slotamount="1" data-masterspeed="1000" data-saveperformance="off" data-title="Slide">
+			<img src="@item.Url" alt="slide1" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+		<div class="tp-caption tp-resizeme  lfr str text-right"
+			 data-x="right"
+			 data-y="center"
+			 data-voffset="-20"
+			 data-hoffset="-351"
+			 data-speed="600"
+			 data-start="900"
+			 data-easing="Power4.easeOut"
+			 data-endeasing="Power4.easeIn"
+			 data-responsive_offset="on"
+			 style="z-index: 2;">
+			<div class="tp-caption1-wd-1 color-base">@item.Description</div>
+			<div class="tp-caption1-wd-2">فروشگاه<br>MyShop</div>
+			<div class="tp-caption1-wd-3"><a href="listing-left-column.html" class="btn btn-lg btn-red" data-text="Shop now!">خرید</a></div>
+		</div>
+	</li>
+	}
+</ul>

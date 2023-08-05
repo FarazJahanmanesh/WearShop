@@ -1,0 +1,129 @@
+﻿@using WearShop.Models.ViewModels; 
+@model CommentProductViewModel
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+	function myfunction() {
+		let formData = {
+			titel: $("#title").val(),
+			email: $("#email").val(),
+			description: $("#description").val()
+		}
+		$.ajax({
+			type: "POST",
+			url: '/Product/Index',
+			data: formData,
+			success: function (msg) {
+				alert("Success");
+			}
+		});
+	}
+</script>
+<div id="pageContent">
+	<div class="container offset-0">
+		<div class="row">
+			<div class="col-md-5 hidden-xs">
+				<div class="product-main-image">
+					<div class="product-main-image-item">
+						<img class="zoom-product" src="@Model.product.ImageUrl" data-zoom-image="images/product/product-big-1-zoom.jpg" alt="" />
+					</div>
+				</div>
+			</div>
+			<div class="col-md-7">
+				<div class="visible-xs">
+					<div class="clearfix"></div>
+					<ul class="mobileGallery-product">
+						<li><img src="@Model.product.ImageUrl" alt="" /></li>
+						<li><img src="@Model.product.ImageUrl" alt="" /></li>
+						<li><img src="@Model.product.ImageUrl" alt="" /></li>
+						<li>
+							<div class="video-carusel">
+								<img src="@Model.product.ImageUrl" alt="" />
+								<div>
+									<iframe src="http://www.youtube.com/embed/JuO-wy0YxIs"></iframe>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="product-info">
+					<h1 class="title vendor-top">@Model.product.Title</h1>
+					<div class="price">
+						<span class="new-price">@Model.product.Price</span><span class="old-price">@Model.product.Price</span>
+					</div>
+					<div class="description">
+						<div class="brand">
+							<img src="images/custom/product-brand.png" alt="">
+						</div>
+						<div class="text">
+							@Model.product.Description
+						</div>
+					</div>
+					<div class="promo">
+						<div class="pull-left">
+							<div class="block-table">
+								<div class="block-table-cell">
+									@Model.product.Off% تخفیف
+								</div>
+							</div>
+						</div>
+						<div class="pull-right">
+							<div class="countdown_box">
+								<div class="countdown_inner">
+									<div class="countdown" data-date="@Model.product.CreateDate"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div>
+		<div class="tt-tabs__content">
+			<div class="divider"></div>
+			<h6>کامنت</h6>
+			<div class="divider"></div>
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label asp-for="comment.Titel" class="col-sm-2 control-label">نام</label>
+					<div class="col-sm-10">
+						<input class="form-control" id="title" placeholder="نام خود را وارد کنید">
+					</div>
+				</div>
+				<div class="form-group">
+					<label asp-for="comment.Email" class="col-sm-2 control-label">ایمیل</label>
+					<div class="col-sm-10">
+						<input class="form-control" id="email" placeholder="ایمیل خود را وارد کنید">
+					</div>
+				</div>
+				<div class="form-group">
+					<label asp-for="comment.Description" class="col-sm-2 control-label">حداکثر متن کامنت 1500 واژه</label>
+					<div class="col-sm-10">
+						<textarea id="description" class="form-control" rows="7" placeholder="متن کامنت خود را بنویسید"></textarea>
+					</div>
+				</div>
+				<div>
+					<input class="btn btn-addtocart" onclick="myfunction()" value="send" type="button" />
+				</div>
+			</form>
+			<div class="reviews-comments">
+				@foreach(var item in Model.product.comments){
+					<div class="item">
+						<div class="rating">
+							<span class="icon-star"></span>
+							<span class="icon-star"></span>
+							<span class="icon-star"></span>
+							<span class="icon-star"></span>
+							<span class="icon-star empty-star"></span>
+						</div>
+						<div class="title">@item.Titel</div>
+						<div class="data">@item.CreatedDate</div>
+						<p>
+							@item.Description
+						</p>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+</div>
